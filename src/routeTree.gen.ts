@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as ImageToVideoRouteImport } from './routes/image-to-video'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ScriptRouteImport } from './routes/script'
+import { Route as ShortsRouteImport } from './routes/shorts'
+import { Route as StoryRouteImport } from './routes/story'
+import { Route as UploadRouteImport } from './routes/upload'
+import { Route as VoiceRouteImport } from './routes/voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImageToVideoRoute = ImageToVideoRouteImport.update({
+  id: '/image-to-video',
+  path: '/image-to-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScriptRoute = ScriptRouteImport.update({
+  id: '/script',
+  path: '/script',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShortsRoute = ShortsRouteImport.update({
+  id: '/shorts',
+  path: '/shorts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoryRoute = StoryRouteImport.update({
+  id: '/story',
+  path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UploadRoute = UploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/downloads': typeof DownloadsRoute
+  '/image-to-video': typeof ImageToVideoRoute
+  '/projects': typeof ProjectsRoute
+  '/script': typeof ScriptRoute
+  '/shorts': typeof ShortsRoute
+  '/story': typeof StoryRoute
+  '/upload': typeof UploadRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/downloads': typeof DownloadsRoute
+  '/image-to-video': typeof ImageToVideoRoute
+  '/projects': typeof ProjectsRoute
+  '/script': typeof ScriptRoute
+  '/shorts': typeof ShortsRoute
+  '/story': typeof StoryRoute
+  '/upload': typeof UploadRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/downloads': typeof DownloadsRoute
+  '/image-to-video': typeof ImageToVideoRoute
+  '/projects': typeof ProjectsRoute
+  '/script': typeof ScriptRoute
+  '/shorts': typeof ShortsRoute
+  '/story': typeof StoryRoute
+  '/upload': typeof UploadRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/downloads'
+    | '/image-to-video'
+    | '/projects'
+    | '/script'
+    | '/shorts'
+    | '/story'
+    | '/upload'
+    | '/voice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/downloads'
+    | '/image-to-video'
+    | '/projects'
+    | '/script'
+    | '/shorts'
+    | '/story'
+    | '/upload'
+    | '/voice'
+  id:
+    | '__root__'
+    | '/'
+    | '/downloads'
+    | '/image-to-video'
+    | '/projects'
+    | '/script'
+    | '/shorts'
+    | '/story'
+    | '/upload'
+    | '/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DownloadsRoute: typeof DownloadsRoute
+  ImageToVideoRoute: typeof ImageToVideoRoute
+  ProjectsRoute: typeof ProjectsRoute
+  ScriptRoute: typeof ScriptRoute
+  ShortsRoute: typeof ShortsRoute
+  StoryRoute: typeof StoryRoute
+  UploadRoute: typeof UploadRoute
+  VoiceRoute: typeof VoiceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/image-to-video': {
+      id: '/image-to-video'
+      path: '/image-to-video'
+      fullPath: '/image-to-video'
+      preLoaderRoute: typeof ImageToVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/script': {
+      id: '/script'
+      path: '/script'
+      fullPath: '/script'
+      preLoaderRoute: typeof ScriptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shorts': {
+      id: '/shorts'
+      path: '/shorts'
+      fullPath: '/shorts'
+      preLoaderRoute: typeof ShortsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/story': {
+      id: '/story'
+      path: '/story'
+      fullPath: '/story'
+      preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload': {
+      id: '/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DownloadsRoute: DownloadsRoute,
+  ImageToVideoRoute: ImageToVideoRoute,
+  ProjectsRoute: ProjectsRoute,
+  ScriptRoute: ScriptRoute,
+  ShortsRoute: ShortsRoute,
+  StoryRoute: StoryRoute,
+  UploadRoute: UploadRoute,
+  VoiceRoute: VoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
