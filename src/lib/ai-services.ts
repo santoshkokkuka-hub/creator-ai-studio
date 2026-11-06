@@ -16,8 +16,11 @@ export interface VoiceRequest { text: string; voice: string; speed: number }
 export interface ImageToVideoRequest { imageCount: number; transition: string; secondsPerImage: number; aspect: "16:9" | "9:16" }
 export interface ShortsRequest { title: string; script: string; captions: boolean; imageCount: number }
 
-export async function generateStory(_req: StoryRequest): Promise<string> {
-  throw new NotConfiguredError("AI Story Generator");
+export async function generateStory(req: StoryRequest): Promise<string> {
+  const { generateStoryFn } = await import("./story.functions");
+  const r = await generateStoryFn({ data: req });
+  if (r.error || !r.story) throw new Error(r.error ?? "Something went wrong");
+  return r.story;
 }
 export async function generateScript(_req: ScriptRequest): Promise<string> {
   throw new NotConfiguredError("AI Script Generator");
