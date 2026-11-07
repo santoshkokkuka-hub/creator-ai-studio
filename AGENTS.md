@@ -34,5 +34,5 @@ use the editor.
 - Production scripts store their source story and clean scene narration together in the current project; the voice handoff uses clean narration so directions are not spoken.
 - Telugu narration uses a typed server function calling Sarvam directly with the existing server secret; it never routes through the Lovable AI gateway because the requested voice integration excludes gateway credits.
 - The root current-project provider persists the active draft and WAV Blob in browser IndexedDB, not expiring object URLs; this is browser-local only until account project storage exists.
-- Keep project context and its hook in a non-component module separate from the provider so React Fast Refresh does not replace the context identity while routes still consume it.
+- Keep project context and its hook separate from the provider and retain the context object in Vite hot data; even context-module refreshes must preserve identity while routes and providers refresh independently.
 - Long narration is split into sentence-aware provider-sized requests and joined as PCM WAV; retry resumes completed chunks to avoid duplicate generation charges.

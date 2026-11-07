@@ -1,8 +1,16 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
-import { ProjectContext, useCurrentProject } from "./current-project-context";
+import { ProjectContext, retainProjectContext, useCurrentProject } from "./current-project-context";
 
 afterEach(cleanup);
+
+it("retains the provider context identity across module refreshes", () => {
+  const hotData = {};
+  const beforeRefresh = retainProjectContext(hotData);
+  const afterRefresh = retainProjectContext(hotData);
+  expect(afterRefresh).toBe(beforeRefresh);
+  expect(retainProjectContext({})).not.toBe(beforeRefresh);
+});
 
 it("reads the active project through the shared context", () => {
   function Consumer() {

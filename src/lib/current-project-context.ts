@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, type Context } from "react";
 import type { VoiceName } from "./voice";
 
 export interface NarrationAsset {
@@ -30,7 +30,14 @@ interface ProjectContextValue {
   saveNarration: (asset: NarrationAsset, projectId: string) => Promise<void>;
   ensureProject: () => string;
 }
-export const ProjectContext = createContext<ProjectContextValue | null>(null);
+// Preserve the context object even when this module itself is hot-reloaded.
+// Provider and route modules can refresh at different times, but must share identity.
+export function retainProjectContext(cache?: { projectContext?: Context<ProjectContextValue | null> }) {
+  const context = cache?.projectContext ?? createContext<ProjectContextValue | null>(null);
+  if (cache) cache.projectContext = context;
+  return context;
+}
+export const ProjectContext = retainProjectContext(import.meta.hot?.data);
 
 
 export function useCurrentProject() {
