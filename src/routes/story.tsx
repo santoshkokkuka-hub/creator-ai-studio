@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BookOpen } from "lucide-react";
 import { PageHeader, Panel, Field, Textarea, Select, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { generateStory } from "@/lib/ai-services";
+import { SceneBoard } from "@/components/SceneBoard";
 
 export const Route = createFileRoute("/story")({
   head: () => ({ meta: [
@@ -40,6 +41,7 @@ function StoryPage() {
           {a.result ? <p className="whitespace-pre-wrap text-sm leading-relaxed">{a.result}</p> : <EmptyState icon={BookOpen} title="No story yet" text="Your generated story will appear here." />}
         </Panel>
       </div>
+      {a.result && <SceneBoard key={a.result} story={a.result} />}
     </>
   );
 }
