@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Film, Search, X } from "lucide-react";
 import { Panel, Input, Select, Button, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { splitStoryIntoScenesFn, searchMediaFn, type Scene, type SceneMedia } from "@/lib/scenes.functions";
@@ -20,6 +20,7 @@ export function SceneBoard({ story }: { story: string }) {
     setScenes(r.scenes);
     return r.scenes;
   });
+  useEffect(() => { void create(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Panel title="Scenes & media" className="mt-6">
