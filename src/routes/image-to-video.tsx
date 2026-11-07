@@ -11,6 +11,8 @@ export const Route = createFileRoute("/image-to-video")({
     { name: "description", content: "Turn your images into a smooth YouTube video with transitions." },
     { property: "og:title", content: "Image to Video Maker — Creator AI Studio" },
     { property: "og:description", content: "Turn your images into a smooth YouTube video with transitions." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ImageToVideoPage,
 });

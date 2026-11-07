@@ -8,6 +8,8 @@ export const Route = createFileRoute("/downloads")({
     { name: "description", content: "Download your finished YouTube videos and Shorts." },
     { property: "og:title", content: "Download Videos — Creator AI Studio" },
     { property: "og:description", content: "Download your finished YouTube videos and Shorts." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: DownloadsPage,
 });

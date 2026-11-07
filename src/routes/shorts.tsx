@@ -11,6 +11,8 @@ export const Route = createFileRoute("/shorts")({
     { name: "description", content: "Create vertical 9:16 YouTube Shorts with captions." },
     { property: "og:title", content: "YouTube Shorts Maker (9:16) — Creator AI Studio" },
     { property: "og:description", content: "Create vertical 9:16 YouTube Shorts with captions." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ShortsPage,
 });

@@ -8,6 +8,8 @@ export const Route = createFileRoute("/projects")({
     { name: "description", content: "All your saved stories, scripts and video projects." },
     { property: "og:title", content: "My Projects — Creator AI Studio" },
     { property: "og:description", content: "All your saved stories, scripts and video projects." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ProjectsPage,
 });
