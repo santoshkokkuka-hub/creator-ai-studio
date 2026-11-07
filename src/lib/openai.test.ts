@@ -33,7 +33,7 @@ describe("shared OpenAI story and script integration", () => {
     expect(productionScriptSchema.safeParse({ title: "test", scenes: [] }).success).toBe(false);
   });
   it("calls OpenAI directly with the configurable economical model", async () => {
-    const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: " Complete story " } }] })));
+    const fetcher = vi.fn().mockImplementation(async () => new Response(JSON.stringify({ choices: [{ finish_reason: "stop", message: { content: " Complete story " } }] })));
     expect(await requestOpenAI({ key: "test-only-key", prompt: "story" }, fetcher)).toBe("Complete story");
     const [url, init] = fetcher.mock.calls[0] ?? [];
     expect(url).toBe("https://api.openai.com/v1/chat/completions");

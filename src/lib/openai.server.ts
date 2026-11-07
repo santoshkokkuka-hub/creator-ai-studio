@@ -41,7 +41,7 @@ export async function requestOpenAI(options: {
     if (!text) throw new Error("OpenAI returned no text. Please try again.");
     return text;
   } catch (error) {
-    if (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError")) throw new Error("OpenAI took too long to respond. Please try again.");
+    if (error && typeof error === "object" && "name" in error && (error.name === "TimeoutError" || error.name === "AbortError")) throw new Error("OpenAI took too long to respond. Please try again.");
     if (error instanceof TypeError || error instanceof SyntaxError) throw new Error("Could not read a response from OpenAI. Please try again.");
     throw error;
   }
