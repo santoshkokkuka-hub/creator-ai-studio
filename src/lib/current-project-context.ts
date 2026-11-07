@@ -17,6 +17,7 @@ export interface CurrentProject {
   id: string;
   story?: string;
   script?: string;
+  scriptNarration?: string | undefined;
   narration?: NarrationAsset | undefined;
 }
 
@@ -25,6 +26,7 @@ interface ProjectContextValue {
   ready: boolean;
   storageError: string | null;
   setContent: (source: "story" | "script", text: string) => void;
+  saveScript?: (story: string, script: string, narration: string) => void;
   saveNarration: (asset: NarrationAsset, projectId: string) => Promise<void>;
   ensureProject: () => string;
 }

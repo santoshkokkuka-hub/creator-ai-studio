@@ -76,6 +76,12 @@ export function CurrentProjectProvider({ children }: { children: ReactNode }) {
     if (!existing || existing.id !== projectId) throw new Error("The current project changed. Generate narration again for this project.");
     await update({ ...existing, narration: asset });
   };
-  return <ProjectContext.Provider value={{ project, ready, storageError, setContent, ensureProject, saveNarration }}>{children}</ProjectContext.Provider>;
+  const saveScript = (story: string, script: string, narration: string) => {
+    if (!ready) return;
+    const existing = current.current;
+    const next: CurrentProject = { ...(existing?.story === story ? existing : { id: crypto.randomUUID() }), story, script, scriptNarration: narration, narration: undefined };
+    void update(next).catch(() => {});
+  };
+  return <ProjectContext.Provider value={{ project, ready, storageError, setContent, saveScript, ensureProject, saveNarration }}>{children}</ProjectContext.Provider>;
 }
 
