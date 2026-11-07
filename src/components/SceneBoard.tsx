@@ -3,7 +3,7 @@ import { Film, Search, X } from "lucide-react";
 import { Panel, Input, Select, Button, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { splitStoryIntoScenesFn, searchMediaFn, type Scene, type SceneMedia } from "@/lib/scenes.functions";
 
-function MediaView({ m, className }: { m: SceneMedia; className?: string }) {
+export function MediaView({ m, className }: { m: SceneMedia; className?: string }) {
   return m.type === "video"
     ? <video src={m.url} poster={m.preview || undefined} controls muted playsInline className={className} />
     : <img src={m.preview} alt={m.tags} loading="lazy" className={className} />;
@@ -55,7 +55,7 @@ export function SceneBoard({ story }: { story: string }) {
   );
 }
 
-function MediaPicker({ initial, onPick, onClose }: { initial: string; onPick: (m: SceneMedia) => void; onClose: () => void }) {
+export function MediaPicker({ initial, onPick, onClose }: { initial: string; onPick: (m: SceneMedia) => void; onClose: () => void }) {
   const [q, setQ] = useState(initial);
   const [kind, setKind] = useState("all");
   const a = useServiceAction<SceneMedia[]>();
