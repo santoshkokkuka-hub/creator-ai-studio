@@ -26,7 +26,7 @@ interface ProjectContextValue {
   ready: boolean;
   storageError: string | null;
   setContent: (source: "story" | "script", text: string) => void;
-  saveScript?: (story: string, script: string, narration: string) => void;
+  saveScript: (story: string, script: string, narration: string) => void;
   saveNarration: (asset: NarrationAsset, projectId: string) => Promise<void>;
   ensureProject: () => string;
 }

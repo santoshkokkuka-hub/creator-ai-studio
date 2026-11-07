@@ -47,7 +47,7 @@ function ScriptPage() {
               const sourceStory = topic.trim() === project?.story?.trim() ? project.story : undefined;
               const result = await generateScript({ data: { topic, tone, duration, language, ...(sourceStory ? { sourceStory } : {}) } });
               if (result.error || !result.script || !result.story || !result.narration) throw new Error(result.error ?? "No complete script was returned. Please retry.");
-              saveScript?.(result.story, result.script, result.narration);
+              saveScript(result.story, result.script, result.narration);
               return result.script;
             })}>Generate script</ActionButton>
           </div>

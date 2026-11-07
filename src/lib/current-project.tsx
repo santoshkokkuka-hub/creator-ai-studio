@@ -68,7 +68,7 @@ export function CurrentProjectProvider({ children }: { children: ReactNode }) {
     const existing = current.current;
     if (existing?.[source] === text) return;
     // A newly generated story starts a new current project; a script attaches to it.
-    const next: CurrentProject = source === "story" || !existing ? { id: crypto.randomUUID(), [source]: text } : { ...existing, script: text, narration: undefined };
+    const next: CurrentProject = source === "story" || !existing ? { id: crypto.randomUUID(), [source]: text } : { ...existing, script: text, scriptNarration: undefined, narration: undefined };
     void update(next).catch(() => {});
   };
   const saveNarration = async (asset: NarrationAsset, projectId: string) => {
