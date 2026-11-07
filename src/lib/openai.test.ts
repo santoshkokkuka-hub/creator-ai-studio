@@ -47,6 +47,11 @@ describe("shared OpenAI story and script integration", () => {
     await expect(requestOpenAI({ key: undefined, prompt: "story" }, fetcher)).rejects.toThrow("not configured");
     expect(fetcher).not.toHaveBeenCalled();
   });
+  it("recognizes exhausted account balance rather than advising a rate-limit retry", async () => {
+    const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: { code: "credit_balance_exhausted", type: "insufficient_quota" } }), { status: 429 }));
+    await expect(requestOpenAI({ key: "test-only-key", prompt: "story" }, fetcher)).rejects.toThrow("balance");
+    expect(openAIError(429, "other_code", "insufficient_quota")).toContain("balance");
+  });
   it.each([[401, undefined, "API key"], [429, "insufficient_quota", "balance"], [429, undefined, "rate limit"], [503, undefined, "unavailable"], [404, "model_not_found", "model"], [403, undefined, "permission"]])("handles OpenAI status %s without exposing provider details", async (status, code, message) => {
     const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: { code, message: "private provider details" } }), { status: Number(status) }));
     await expect(requestOpenAI({ key: "test-only-key", prompt: "story" }, fetcher)).rejects.toThrow(String(message));

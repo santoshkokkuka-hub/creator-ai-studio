@@ -1,7 +1,7 @@
 export const DEFAULT_OPENAI_TEXT_MODEL = "gpt-5-mini";
 
-export function openAIError(status: number, code?: string) {
-  if (code === "insufficient_quota" || code === "billing_hard_limit_reached" || status === 402) return "Your OpenAI account has insufficient API balance or quota. Check OpenAI billing before retrying.";
+export function openAIError(status: number, code?: string, type?: string) {
+  if (type === "insufficient_quota" || code === "credit_balance_exhausted" || code === "insufficient_quota" || code === "billing_hard_limit_reached" || status === 402) return "Your OpenAI account has insufficient API balance or quota. Check OpenAI billing before retrying.";
   if (status === 401) return "OpenAI rejected the API key. Please update your OpenAI key in Secrets.";
   if (status === 403) return "This OpenAI key does not have permission for this request. Check its project access.";
   if (status === 429) return "OpenAI's rate limit was reached. Please wait a minute and try again.";
@@ -30,8 +30,8 @@ export async function requestOpenAI(options: {
       }),
     });
     if (!response.ok) {
-      const body = await response.json().catch(() => null) as { error?: { code?: string } } | null;
-      throw new Error(openAIError(response.status, body?.error?.code));
+      const body = await response.json().catch(() => null) as { error?: { code?: string; type?: string } } | null;
+      throw new Error(openAIError(response.status, body?.error?.code, body?.error?.type));
     }
     const body = await response.json() as { choices?: { finish_reason?: string; message?: { content?: string; refusal?: string } }[] };
     const choice = body.choices?.[0];
