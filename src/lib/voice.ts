@@ -58,5 +58,5 @@ export function joinWavAudio(encoded: string[]): Blob {
   label(0, "RIFF"); view.setUint32(4, header.length + length - 8, true);
   label(8, "WAVE"); label(12, "fmt "); view.setUint32(16, format.length, true); header.set(format, 20);
   label(20 + format.length, "data"); view.setUint32(24 + format.length, length, true);
-  return new Blob([header, ...parts], { type: "audio/wav" });
+  return new Blob([header.buffer, ...parts.map(part => new Uint8Array(part).buffer)], { type: "audio/wav" });
 }

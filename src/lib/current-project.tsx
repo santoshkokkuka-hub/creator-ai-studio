@@ -17,7 +17,7 @@ export interface CurrentProject {
   id: string;
   story?: string;
   script?: string;
-  narration?: NarrationAsset;
+  narration?: NarrationAsset | undefined;
 }
 
 function openStore(): Promise<IDBDatabase> {

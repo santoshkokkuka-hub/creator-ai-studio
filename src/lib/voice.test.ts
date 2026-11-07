@@ -41,8 +41,10 @@ describe("Telugu narration", () => {
     const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({ audios: [audio] })));
     vi.stubGlobal("fetch", fetcher);
     expect(await requestSarvamVoice({ text: "తెలుగు కథ", voice: "Female — Ritu", speed: 1.2 }, "test-only-key")).toEqual({ audio, error: null });
-    expect(fetcher.mock.calls[0][0]).toBe("https://api.sarvam.ai/text-to-speech");
-    const request = fetcher.mock.calls[0][1];
+    const call = fetcher.mock.calls[0];
+    if (!call) throw new Error("Expected a Sarvam request");
+    expect(call[0]).toBe("https://api.sarvam.ai/text-to-speech");
+    const request = call[1];
     expect(JSON.parse(request.body)).toEqual({ text: "తెలుగు కథ", language_code: "te-IN", speaker: "ritu", model: "bulbul:v3", pace: 1.2, speech_sample_rate: 22050 });
     expect(request.headers["api-subscription-key"]).toBe("test-only-key");
   });
