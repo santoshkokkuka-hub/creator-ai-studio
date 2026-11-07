@@ -9,6 +9,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Create stories, scripts, Telugu voice-overs and YouTube videos and Shorts in one studio." },
       { property: "og:title", content: "Creator AI Studio — AI YouTube Video Maker" },
       { property: "og:description", content: "Create stories, scripts, Telugu voice-overs and YouTube videos and Shorts in one studio." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

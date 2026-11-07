@@ -11,6 +11,8 @@ export const Route = createFileRoute("/script")({
     { name: "description", content: "Write a structured YouTube video script with intro, scenes and outro." },
     { property: "og:title", content: "AI Script Generator — Creator AI Studio" },
     { property: "og:description", content: "Write a structured YouTube video script with intro, scenes and outro." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ScriptPage,
 });

@@ -12,6 +12,8 @@ export const Route = createFileRoute("/story")({
     { name: "description", content: "Turn a simple idea into a story for your next YouTube video." },
     { property: "og:title", content: "AI Story Generator — Creator AI Studio" },
     { property: "og:description", content: "Turn a simple idea into a story for your next YouTube video." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: StoryPage,
 });

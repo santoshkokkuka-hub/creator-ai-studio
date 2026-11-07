@@ -9,6 +9,8 @@ export const Route = createFileRoute("/upload")({
     { name: "description", content: "Upload and arrange images to use in your videos." },
     { property: "og:title", content: "Image Upload — Creator AI Studio" },
     { property: "og:description", content: "Upload and arrange images to use in your videos." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: UploadPage,
 });
