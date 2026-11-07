@@ -25,9 +25,6 @@ export async function generateStory(req: StoryRequest): Promise<string> {
 export async function generateScript(_req: ScriptRequest): Promise<string> {
   throw new NotConfiguredError("AI Script Generator");
 }
-export async function generateTeluguVoice(_req: VoiceRequest): Promise<Blob> {
-  throw new NotConfiguredError("Telugu AI Voice Generator");
-}
 export async function createVideoFromImages(_req: ImageToVideoRequest): Promise<Blob> {
   throw new NotConfiguredError("Image to Video Maker");
 }

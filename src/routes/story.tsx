@@ -4,6 +4,7 @@ import { BookOpen } from "lucide-react";
 import { PageHeader, Panel, Field, Textarea, Select, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { generateStory } from "@/lib/ai-services";
 import { SceneBoard } from "@/components/SceneBoard";
+import { useCurrentProject } from "@/lib/current-project";
 
 export const Route = createFileRoute("/story")({
   head: () => ({ meta: [
@@ -21,6 +22,7 @@ function StoryPage() {
   const [length, setLength] = useState("Short (1–2 min)");
   const [language, setLanguage] = useState("Telugu");
   const a = useServiceAction<string>();
+  const { setContent } = useCurrentProject();
   return (
     <>
       <PageHeader title="AI Story Generator" description="Describe your idea and choose a style." />
@@ -33,7 +35,11 @@ function StoryPage() {
               <Field label="Length"><Select value={length} onChange={(e) => setLength(e.target.value)} options={["Short (1–2 min)", "Medium (3–5 min)", "Long (8–10 min)"]} /></Field>
               <Field label="Language"><Select value={language} onChange={(e) => setLanguage(e.target.value)} options={["Telugu", "English", "Hindi"]} /></Field>
             </div>
-            <ActionButton loading={a.loading} disabled={!idea.trim()} onClick={() => a.run(() => generateStory({ idea, genre, length, language }))}>Generate story</ActionButton>
+            <ActionButton loading={a.loading} disabled={!idea.trim()} onClick={() => a.run(async () => {
+              const story = await generateStory({ idea, genre, length, language });
+              setContent("story", story);
+              return story;
+            })}>Generate story</ActionButton>
           </div>
         </Panel>
         <Panel title="Result">
