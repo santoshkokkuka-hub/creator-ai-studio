@@ -7,7 +7,8 @@
 Remaining: actual video rendering is still not connected (Create Video shows the honest "not connected yet" notice in both modes) — no fake success is shown.
 
 # Shared OpenAI story and script integration
-- [ ] Connect both generators through one server-only OpenAI client using the existing secret and a configurable economical model.
-- [ ] Preserve existing controls and results; reuse the current story for scripts, or create a story from a short idea first.
-- [ ] Keep scene narration available for the existing voice handoff without changing Sarvam or media/video flows.
-- [ ] Test requests, language/settings, errors and the real story-to-script flow; report provider blockers honestly.
+- [x] Connect both generators through one server-only OpenAI client using the existing secret and a configurable economical model.
+- [x] Preserve existing controls and results; reuse the current story for scripts, or create a story from a short idea first.
+- [x] Keep scene narration available for the existing voice handoff without changing Sarvam or media/video flows.
+- [x] Test requests, language/settings and provider errors; both real UI calls verified to return the correct billing error.
+- [ ] Verify successful live story-to-script-to-voice handoff — blocked by OpenAI `credit_balance_exhausted` / `insufficient_quota`; requires replenished OpenAI API billing.
