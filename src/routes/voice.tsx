@@ -46,7 +46,7 @@ function VoicePage() {
     if (asset) {
       setAudio(asset); setText(asset.text); setVoice(asset.voice); setSpeed(asset.speed); setSource(asset.source); setSaved(!storageError);
     } else if (project?.story || project?.script) {
-      setText(project.story ?? project.script ?? ""); setSource(project.story ? "story" : "script");
+      setText(project.story ?? project.scriptNarration ?? project.script ?? ""); setSource(project.story ? "story" : "script");
     }
   }, [ready, project, storageError]);
   useEffect(() => {
@@ -86,7 +86,7 @@ function VoicePage() {
     } finally { if (mounted.current) { setLoading(false); setProgress(""); } }
   };
   const useText = (kind: "story" | "script") => {
-    setText(project?.[kind] ?? ""); setSource(kind); setError(null);
+    setText(kind === "script" ? project?.scriptNarration ?? project?.script ?? "" : project?.story ?? ""); setSource(kind); setError(null);
   };
   const download = () => {
     if (!url || !audio) return;

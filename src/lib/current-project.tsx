@@ -68,7 +68,7 @@ export function CurrentProjectProvider({ children }: { children: ReactNode }) {
     const existing = current.current;
     if (existing?.[source] === text) return;
     // A newly generated story starts a new current project; a script attaches to it.
-    const next: CurrentProject = source === "story" || !existing ? { id: crypto.randomUUID(), [source]: text } : { ...existing, script: text, narration: undefined };
+    const next: CurrentProject = source === "story" || !existing ? { id: crypto.randomUUID(), [source]: text } : { ...existing, script: text, scriptNarration: undefined, narration: undefined };
     void update(next).catch(() => {});
   };
   const saveNarration = async (asset: NarrationAsset, projectId: string) => {
@@ -76,6 +76,12 @@ export function CurrentProjectProvider({ children }: { children: ReactNode }) {
     if (!existing || existing.id !== projectId) throw new Error("The current project changed. Generate narration again for this project.");
     await update({ ...existing, narration: asset });
   };
-  return <ProjectContext.Provider value={{ project, ready, storageError, setContent, ensureProject, saveNarration }}>{children}</ProjectContext.Provider>;
+  const saveScript = (story: string, script: string, narration: string) => {
+    if (!ready) return;
+    const existing = current.current;
+    const next: CurrentProject = { ...(existing?.story === story ? existing : { id: crypto.randomUUID() }), story, script, scriptNarration: narration, narration: undefined };
+    void update(next).catch(() => {});
+  };
+  return <ProjectContext.Provider value={{ project, ready, storageError, setContent, saveScript, ensureProject, saveNarration }}>{children}</ProjectContext.Provider>;
 }
 
