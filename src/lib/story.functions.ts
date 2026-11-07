@@ -21,17 +21,17 @@ Write entirely in ${data.language}${data.language === "Telugu" ? " script" : ""}
 
     try {
       const res = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
         {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-          body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }] }),
+          body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { thinkingConfig: { thinkingLevel: "low" } } }),
         },
       );
       if (!res.ok) {
         console.error("Gemini error", res.status, await res.text());
         const msg =
-          res.status === 429 ? "Too many requests right now. Please wait a minute and try again."
+          res.status === 429 || res.status === 503 ? "Gemini is busy right now. Please wait a minute and try again."
           : res.status === 400 || res.status === 401 || res.status === 403 ? "Gemini rejected the request. Please check your API key."
           : "The story service is unavailable. Please try again.";
         return { story: null, error: msg };
