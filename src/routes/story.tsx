@@ -4,7 +4,7 @@ import { BookOpen } from "lucide-react";
 import { PageHeader, Panel, Field, Textarea, Select, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { generateStory } from "@/lib/ai-services";
 import { SceneBoard } from "@/components/SceneBoard";
-import { useCurrentProject } from "@/lib/current-project";
+import { useCurrentProject } from "@/lib/current-project-context";
 
 export const Route = createFileRoute("/story")({
   head: () => ({ meta: [

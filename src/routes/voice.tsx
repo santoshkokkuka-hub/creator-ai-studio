@@ -5,7 +5,7 @@ import { AudioLines, Download, BookOpen, FileText } from "lucide-react";
 import { PageHeader, Panel, Field, Textarea, Select, ActionButton, Button, Notice, EmptyState } from "@/components/studio";
 import { generateTeluguVoiceFn } from "@/lib/voice.functions";
 import { joinWavAudio, splitNarration, VOICES, VOICE_SAMPLE_RATE, type VoiceName } from "@/lib/voice";
-import { useCurrentProject, type NarrationAsset } from "@/lib/current-project";
+import { useCurrentProject, type NarrationAsset } from "@/lib/current-project-context";
 
 export const Route = createFileRoute("/voice")({
   head: () => ({ meta: [

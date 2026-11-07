@@ -1,24 +1,5 @@
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import type { VoiceName } from "./voice";
-
-export interface NarrationAsset {
-  file: Blob;
-  filename: string;
-  mimeType: "audio/wav";
-  text: string;
-  voice: VoiceName;
-  speed: number;
-  language: "te-IN";
-  sampleRate: number;
-  createdAt: string;
-  source: "story" | "script" | "custom";
-}
-export interface CurrentProject {
-  id: string;
-  story?: string;
-  script?: string;
-  narration?: NarrationAsset | undefined;
-}
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { ProjectContext, type CurrentProject, type NarrationAsset } from "./current-project-context";
 
 function openStore(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -51,16 +32,6 @@ async function writeProject(project: CurrentProject): Promise<void> {
     });
   } finally { db.close(); }
 }
-
-interface ProjectContextValue {
-  project: CurrentProject | null;
-  ready: boolean;
-  storageError: string | null;
-  setContent: (source: "story" | "script", text: string) => void;
-  saveNarration: (asset: NarrationAsset, projectId: string) => Promise<void>;
-  ensureProject: () => string;
-}
-const ProjectContext = createContext<ProjectContextValue | null>(null);
 
 export function CurrentProjectProvider({ children }: { children: ReactNode }) {
   const [project, setProject] = useState<CurrentProject | null>(null);
@@ -108,8 +79,3 @@ export function CurrentProjectProvider({ children }: { children: ReactNode }) {
   return <ProjectContext.Provider value={{ project, ready, storageError, setContent, ensureProject, saveNarration }}>{children}</ProjectContext.Provider>;
 }
 
-export function useCurrentProject() {
-  const context = useContext(ProjectContext);
-  if (!context) throw new Error("Current project provider is missing.");
-  return context;
-}

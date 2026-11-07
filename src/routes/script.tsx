@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FileText } from "lucide-react";
 import { PageHeader, Panel, Field, Input, Select, ActionButton, Notice, EmptyState, useServiceAction } from "@/components/studio";
 import { generateScript } from "@/lib/ai-services";
-import { useCurrentProject } from "@/lib/current-project";
+import { useCurrentProject } from "@/lib/current-project-context";
 
 export const Route = createFileRoute("/script")({
   head: () => ({ meta: [
